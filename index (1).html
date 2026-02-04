@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>荣格八维认知功能测试</title>
+  <!-- Tailwind CSS v3 -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Font Awesome -->
+  <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js"></script>
+  <!-- 统一的 Tailwind 配置 -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#3b82f6',
+            secondary: '#8b5cf6',
+            accent: '#06b6d4',
+            neutral: '#f3f4f6',
+            'neutral-dark': '#9ca3af',
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+          },
+          animation: {
+            'fade-in': 'fadeIn 0.5s ease-in-out',
+            'slide-in': 'slideIn 0.5s ease-in-out',
+          },
+          keyframes: {
+            fadeIn: {
+              '0%': { opacity: '0' },
+              '100%': { opacity: '1' },
+            },
+            slideIn: {
+              '0%': { transform: 'translateY(20px)', opacity: '0' },
+              '100%': { transform: 'translateY(0)', opacity: '1' },
+            },
+          },
+        }
+      }
+    }
+  </script>
+  <style type="text/tailwindcss">
+    @layer utilities {
+      .content-auto {
+        content-visibility: auto;
+      }
+      .text-shadow {
+        text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      }
+      .transition-all-300 {
+        transition: all 300ms ease-in-out;
+      }
+      .card-hover:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px -5px rgba(59, 130, 246, 0.1), 0 10px 10px -5px rgba(59, 130, 246, 0.04);
+      }
+    }
+  </style>
+</head>
+<body class="bg-gray-50 font-sans text-gray-800">
+  <!-- 导航栏 -->
+  <nav class="bg-white shadow-sm fixed w-full z-10">
+    <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+      <div class="flex items-center space-x-2">
+        <img src="https://p9-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/super_tool/46d841280a1a440e8ea1bb5b9e25bfe8~tplv-a9rns2rl98-image.image?lk3s=8e244e95&rcl=20260204195732C800890F6B300802BBDA&rrcfp=f06b921b&x-expires=1772798273&x-signature=QujUXkAG42XUpnZEnSEJ4%2FK6%2F%2FM%3D" alt="Logo" class="h-10 w-10">
+        <span class="text-xl font-semibold text-primary">荣格八维测试</span>
+      </div>
+      <div class="hidden md:flex space-x-6">
+        <a href="#" class="text-gray-600 hover:text-primary transition-all-300" id="nav-home">首页</a>
+        <a href="#" class="text-gray-600 hover:text-primary transition-all-300" id="nav-about">关于测试</a>
+        <a href="#" class="text-gray-600 hover:text-primary transition-all-300" id="nav-test">开始测试</a>
+      </div>
+      <button class="md:hidden text-gray-600 focus:outline-none" id="mobile-menu-button">
+        <i class="fa fa-bars text-xl"></i>
+      </button>
+    </div>
+    <!-- 移动端菜单 -->
+    <div class="md:hidden hidden bg-white shadow-md absolute w-full" id="mobile-menu">
+      <div class="container mx-auto px-4 py-2 flex flex-col space-y-3">
+        <a href="#" class="text-gray-600 hover:text-primary py-2 transition-all-300" id="mobile-nav-home">首页</a>
+        <a href="#" class="text-gray-600 hover:text-primary py-2 transition-all-300" id="mobile-nav-about">关于测试</a>
+        <a href="#" class="text-gray-600 hover:text-primary py-2 transition-all-300" id="mobile-nav-test">开始测试</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- 主内容区 -->
+  <main class="container mx-auto px-4 pt-24 pb-16">
+    <!-- 首页部分 -->
+    <section id="home-section" class="min-h-screen flex flex-col justify-center py-12 animate-fade-in">
+      <div class="max-w-4xl mx-auto text-center">
+        <h1 class="text-4xl md:text-5xl font-bold mb-6 text-primary">探索你的认知功能</h1>
+        <p class="text-xl text-gray-600 mb-10">通过荣格八维认知功能测试，深入了解你的思维方式和行为偏好</p>
+        <div class="flex justify-center">
+          <button id="start-test-btn" class="bg-primary hover:bg-blue-600 text-white font-medium py-3 px-8 rounded-lg shadow-lg transition-all-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
+            开始测试
+          </button>
+        </div>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mt-20">
+        <div class="bg-white p-6 rounded-xl shadow-md card-hover transition-all-300">
+          <div class="w-14 h-14 bg-blue-100 rounded-full flex items-center justify-center mb-4 mx-auto">
+            <i class="fa fa-lightbulb-o text-primary text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-semibold mb-3 text-center">深入了解自己</h3>
+          <p class="text-gray-600 text-center">揭示你的主导认知功能，理解你的思维模式和行为偏好</p>
+        </div>
+        
+        <div class="bg-white p-6 rounded-xl shadow-md card-hover transition-all-300">
+          <div class="w-14 h-14 bg-purple-100 rounded-full flex items-center justify-center mb-4 mx-auto">
+            <i class="fa fa-users text-secondary text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-semibold mb-3 text-center">改善人际关系</h3>
+          <p class="text-gray-600 text-center">理解他人的认知方式，提升沟通效率和人际关系质量</p>
+        </div>
+        
+        <div class="bg-white p-6 rounded-xl shadow-md card-hover transition-all-300">
+          <div class="w-14 h-14 bg-cyan-100 rounded-full flex items-center justify-center mb-4 mx-auto">
+            <i class="fa fa-line-chart text-accent text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-semibold mb-3 text-center">职业发展指导</h3>
+          <p class="text-gray-600 text-center">根据你的认知优势，获取个性化的职业发展建议</p>
+        </div>
+        
+        <div class="bg-white p-6 rounded-xl shadow-md card-hover transition-all-300">
+          <div class="w-14 h-14 bg-gray-100 rounded-full flex items-center justify-center mb-4 mx-auto">
+            <i class="fa fa-bar-chart text-neutral-dark text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-semibold mb-3 text-center">可视化分析</h3>
+          <p class="text-gray-600 text-center">通过直观的图表，清晰展示你的八维功能分布情况</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 关于测试部分 -->
+    <section id="about-section" class="min-h-screen py-12 hidden animate-fade-in">
+      <div class="max-w-4xl mx-auto">
+        <h2 class="text-3xl font-bold mb-8 text-center text-primary">关于荣格八维认知功能</h2>
+        
+        <div class="bg-white rounded-xl shadow-md p-8 mb-10">
+          <h3 class="text-2xl font-semibold mb-4">什么是荣格八维？</h3>
+          <p class="text-gray-700 mb-6">荣格八维认知功能是由瑞士心理学家卡尔·荣格在《心理类型》一书中提出的理论框架，描述了人类获取信息和做决策的八种基本方式。这八种功能由两种态度（内倾/外倾）和四种功能（思维、情感、感觉、直觉）组合而成。</p>
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <div>
+              <h4 class="text-lg font-medium mb-2 text-primary">两种态度</h4>
+              <ul class="list-disc list-inside space-y-2 text-gray-700">
+                <li><span class="font-medium">外倾(E)</span>：心理能量指向外部世界</li>
+                <li><span class="font-medium">内倾(I)</span>：心理能量指向内心世界</li>
+              </ul>
+            </div>
+            <div>
+              <h4 class="text-lg font-medium mb-2 text-primary">四种功能</h4>
+              <ul class="list-disc list-inside space-y-2 text-gray-700">
+                <li><span class="font-medium">思维(T)</span>：通过逻辑分析理解世界</li>
+                <li><span class="font-medium">情感(F)</span>：基于价值观和情感反应评价事物</li>
+                <li><span class="font-medium">感觉(S)</span>：通过感官知觉获取信息</li>
+                <li><span class="font-medium">直觉(N)</span>：通过直觉或"第六感"获取信息</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        
+        <div class="bg-white rounded-xl shadow-md p-8 mb-10">
+          <h3 class="text-2xl font-semibold mb-4">八种认知功能详解</h3>
+          
+          <div class="space-y-6">
+            <div class="p-4 border-l-4 border-blue-500 bg-blue-50 rounded-r-lg">
+              <h4 class="text-lg font-medium mb-2">外倾感觉 (Se)</h4>
+              <p class="text-gray-700">关注当下的感官体验，喜欢沉浸在现实世界中，对环境变化非常敏锐，爱冒险、爱行动、爱即时反馈。</p>
+            </div>
+            
+            <div class="p-4 border-l-4 border-green-500 bg-green-50 rounded-r-lg">
+              <h4 class="text-lg font-medium mb-2">内倾感觉 (Si)</h4>
+              <p class="text-gray-700">关注内在的经验和记忆，倾向依赖过往经验来预测未来，喜欢稳定、规律、可预期的生活，对细节和变化敏感。</p>
+            </div>
+            
+            <div class="p-4 border-l-4 border-purple-500 bg-purple-50 rounded-r-lg">
+              <h4 class="text-lg font-medium mb-2">外倾直觉 (Ne)</h4>
+              <p class="text-gray-700">关注外部世界的可能性，思路跳跃、创意丰富，能同时看到多种可能性，喜欢跨界、创新、尝试新事物。</p>
+            </div>
+            
+            <div class="p-4 border-l-4 border-indigo-500 bg-indigo-50 rounded-r-lg">
+              <h4 class="text-lg font-medium mb-2">内倾直觉 (Ni)</h4>
+              <p class="text-gray-700">关注内在的洞察和理解，擅长洞察事物本质，对趋势和未来有直觉式判断，能把零散信息整合成一个"内在模型"。</p>
+            </div>
+            
+            <div class="p-4 border-l-4 border-red-500 bg-red-50 rounded-r-lg">
+              <h4 class="text-lg font-medium mb-2">外倾思维 (Te)</h4>
+              <p class="text-gray-700">关注外部世界的逻辑和效率，目标清晰、效率导向，善于管理资源和推进事情，快速决策、快速执行。</p>
+            </div>
+            
+            <div class="p-4 border-l-4 border-orange-500 bg-orange-50 rounded-r-lg">
+              <h4 class="text-lg font-medium mb-2">内倾思维 (Ti)</h4>
+              <p class="text-gray-700">关注内在的逻辑结构，逻辑敏锐，善于拆解结构，喜欢构建自己的认知体系，对不严谨非常敏感。</p>
+            </div>
+            
+            <div class="p-4 border-l-4 border-pink-500 bg-pink-50 rounded-r-lg">
+              <h4 class="text-lg font-medium mb-2">外倾情感 (Fe)</h4>
+              <p class="text-gray-700">关注外部世界的情感和谐，共情力强，社交敏锐，擅长调节关系与氛围，关注群体和谐，乐于情感表达与支持。</p>
+            </div>
+            
+            <div class="p-4 border-l-4 border-teal-500 bg-teal-50 rounded-r-lg">
+              <h4 class="text-lg font-medium mb-2">内倾情感 (Fi)</h4>
+              <p class="text-gray-700">关注内在的价值观和情感，情感深刻，价值观清晰，对"不对劲"非常敏感，坚持内心原则，擅长自我反思。</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="text-center">
+          <button id="about-to-test-btn" class="bg-primary hover:bg-blue-600 text-white font-medium py-3 px-8 rounded-lg shadow-lg transition-all-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
+            开始测试
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 测试部分 -->
+    <section id="test-section" class="min-h-screen py-12 hidden animate-fade-in">
+      <div class="max-w-3xl mx-auto">
+        <div class="bg-white rounded-xl shadow-md p-6 md:p-8">
+          <div class="flex justify-between items-center mb-8">
+            <h2 class="text-2xl font-bold text-primary">荣格八维认知功能测试</h2>
+            <div class="text-gray-500" id="question-progress">问题 <span id="current-question">1</span>/<span id="total-questions">30</span></div>
+          </div>
+          
+          <div class="mb-8">
+            <div class="w-full bg-gray-200 rounded-full h-2.5">
+              <div class="bg-primary h-2.5 rounded-full" id="progress-bar" style="width: 3.33%"></div>
+            </div>
+          </div>
+          
+          <div id="question-container">
+            <h3 class="text-xl font-medium mb-6" id="question-text">我总是活在当下，享受确确实实的体验</h3>
+            
+            <div class="space-y-4" id="options-container">
+              <label class="flex items-center p-4 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50 transition-all-300">
+                <input type="radio" name="answer" value="5" class="h-5 w-5 text-primary focus:ring-primary">
+                <span class="ml-3 text-gray-700">非常符合</span>
+              </label>
+              
+              <label class="flex items-center p-4 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50 transition-all-300">
+                <input type="radio" name="answer" value="4" class="h-5 w-5 text-primary focus:ring-primary">
+                <span class="ml-3 text-gray-700">比较符合</span>
+              </label>
+              
+              <label class="flex items-center p-4 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50 transition-all-300">
+                <input type="radio" name="answer" value="3" class="h-5 w-5 text-primary focus:ring-primary">
+                <span class="ml-3 text-gray-700">不确定</span>
+              </label>
+              
+              <label class="flex items-center p-4 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50 transition-all-300">
+                <input type="radio" name="answer" value="2" class="h-5 w-5 text-primary focus:ring-primary">
+                <span class="ml-3 text-gray-700">不太符合</span>
+              </label>
+              
+              <label class="flex items-center p-4 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50 transition-all-300">
+                <input type="radio" name="answer" value="1" class="h-5 w-5 text-primary focus:ring-primary">
+                <span class="ml-3 text-gray-700">非常不符合</span>
+              </label>
+            </div>
+          </div>
+          
+          <div class="flex justify-between mt-8">
+            <button id="prev-btn" class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-medium py-2 px-6 rounded-lg transition-all-300 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-opacity-50 disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+              上一题
+            </button>
+            
+            <button id="next-btn" class="bg-primary hover:bg-blue-600 text-white font-medium py-2 px-6 rounded-lg transition-all-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
+              下一题
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 结果部分 -->
+    <section id="result-section" class="min-h-screen py-12 hidden animate-fade-in">
+      <div class="max-w-5xl mx-auto">
+        <div class="bg-white rounded-xl shadow-md p-6 md:p-8">
+          <h2 class="text-3xl font-bold mb-8 text-center text-primary">你的荣格八维认知功能分析</h2>
+          
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+            <div>
+              <h3 class="text-xl font-semibold mb-4 text-center">认知功能得分</h3>
+              <div class="bg-gray-50 p-4 rounded-lg">
+                <canvas id="radar-chart" height="300"></canvas>
+              </div>
+            </div>
+            
+            <div>
+              <h3 class="text-xl font-semibold mb-4 text-center">功能排序</h3>
+              <div class="space-y-4" id="function-ranking">
+                <!-- 功能排序将通过JavaScript动态生成 -->
+              </div>
+            </div>
+          </div>
+          
+          <div class="mb-12">
+            <h3 class="text-2xl font-semibold mb-6">主导功能分析</h3>
+            <div id="dominant-function-analysis" class="p-6 bg-blue-50 rounded-lg">
+              <!-- 主导功能分析将通过JavaScript动态生成 -->
+            </div>
+          </div>
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+            <div>
+              <h3 class="text-xl font-semibold mb-4">优势与潜能</h3>
+              <ul class="list-disc list-inside space-y-2 text-gray-700" id="strengths-list">
+                <!-- 优势将通过JavaScript动态生成 -->
+              </ul>
+            </div>
+            
+            <div>
+              <h3 class="text-xl font-semibold mb-4">发展建议</h3>
+              <ul class="list-disc list-inside space-y-2 text-gray-700" id="development-list">
+                <!-- 发展建议将通过JavaScript动态生成 -->
+              </ul>
+            </div>
+          </div>
+          
+          <div class="text-center">
+            <button id="retake-test-btn" class="bg-primary hover:bg-blue-600 text-white font-medium py-3 px-8 rounded-lg shadow-lg transition-all-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
+              重新测试
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- 页脚 -->
+  <footer class="bg-gray-800 text-white py-8">
+    <div class="container mx-auto px-4">
+      <div class="flex flex-col md:flex-row justify-between items-center">
+        <div class="mb-4 md:mb-0">
+          <div class="flex items-center space-x-2">
+            <img src="https://p9-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/super_tool/46d841280a1a440e8ea1bb5b9e25bfe8~tplv-a9rns2rl98-image.image?lk3s=8e244e95&rcl=20260204195732C800890F6B300802BBDA&rrcfp=f06b921b&x-expires=1772798273&x-signature=QujUXkAG42XUpnZEnSEJ4%2FK6%2F%2FM%3D" alt="Logo" class="h-8 w-8">
+            <span class="text-lg font-semibold">荣格八维测试</span>
+          </div>
+          <p class="text-gray-400 mt-2">探索你的认知功能，理解你的思维方式</p>
+        </div>
+        
+        <div class="flex space-x-6">
+          <a href="#" class="text-gray-400 hover:text-white transition-all-300">
+            <i class="fa fa-facebook"></i>
+          </a>
+          <a href="#" class="text-gray-400 hover:text-white transition-all-300">
+            <i class="fa fa-twitter"></i>
+          </a>
+          <a href="#" class="text-gray-400 hover:text-white transition-all-300">
+            <i class="fa fa-instagram"></i>
+          </a>
+          <a href="#" class="text-gray-400 hover:text-white transition-all-300">
+            <i class="fa fa-linkedin"></i>
+          </a>
+        </div>
+      </div>
+      
+      <div class="border-t border-gray-700 mt-6 pt-6 text-center text-gray-400">
+        <p>&copy; 2026 荣格八维测试. 保留所有权利.</p>
+      </div>
+    </div>
+  </footer>
+
+
+
+  <script>
+    // 测试问题数据
+    const questions = [
+      // 外倾感觉 (Se)
+      { id: 1, text: "我总是活在当下，享受确确实实的体验", function: "Se" },
+      { id: 2, text: "在社交活动后需要独处以恢复心理能量", function: "Se" },
+      { id: 3, text: "我在现实生活中，总能敏锐地觉察到外面发生了什么，或者环境有了什么细微的变化，并且即时地作出反应", function: "Se" },
+      { id: 4, text: "常在美好的感官享受中体验到沉醉和感动", function: "Se" },
+      { id: 5, text: "喜欢通过亲身实践来学习，而非仅靠阅读或听讲", function: "Se" },
+      
+      // 内倾感觉 (Si)
+      { id: 6, text: "每天履行相同的有规律的工作或活动是一种舒适的节奏", function: "Si" },
+      { id: 7, text: "传统的生活方式让你觉得更自在", function: "Si" },
+      { id: 8, text: "常常回顾自己的内心感受，发掘自己的内心世界", function: "Si" },
+      { id: 9, text: "喜欢按照既定计划进行，有条不紊地完成任务", function: "Si" },
+      { id: 10, text: "依赖过去的经验和记忆做决策", function: "Si" },
+      
+      // 外倾直觉 (Ne)
+      { id: 11, text: "我的思维比较发散，常常会脱离当前的情景，转移到其他的地方", function: "Ne" },
+      { id: 12, text: "喜欢探索不同的可能性和创新方法", function: "Ne" },
+      { id: 13, text: "常常能对未来要发生的事产生准确的预感", function: "Ne" },
+      { id: 14, text: "富有想象力和创造力，善于发现新的可能性", function: "Ne" },
+      { id: 15, text: "当面对新任务时，更喜欢探索不同的可能性", function: "Ne" },
+      
+      // 内倾直觉 (Ni)
+      { id: 16, text: "常能顿悟到事情的关窍或对未来有清晰预感", function: "Ni" },
+      { id: 17, text: "坚持推行自身以直觉选定的行事方案", function: "Ni" },
+      { id: 18, text: "通过逻辑分析考察他人的处境，以更好地理解他人", function: "Ni" },
+      { id: 19, text: "具有洞察力和预见性，能够看到事物的本质", function: "Ni" },
+      { id: 20, text: "顿悟得到答案后补足推理过程", function: "Ni" },
+      
+      // 外倾思考 (Te)
+      { id: 21, text: "在战略和大方向层面，果断作出决策或领导他人", function: "Te" },
+      { id: 22, text: "坚持根据客观的衡量标准(例如获得的积分)来做出决定", function: "Te" },
+      { id: 23, text: "认为流程明确、细节清晰且目标笃定而客观，是一件好工作的重要特质", function: "Te" },
+      { id: 24, text: "善于晓之以理、动之以情地说服他人配合我", function: "Te" },
+      { id: 25, text: "在团队中，通常是直接给出决策，并推动任务进展", function: "Te" },
+      
+      // 内倾思考 (Ti)
+      { id: 26, text: "我常常花费很多脑力和时间搞清楚事情如何运转，哪怕没有必要", function: "Ti" },
+      { id: 27, text: "习惯以理性分析客观情况来看待和解决问题", function: "Ti" },
+      { id: 28, text: "拆解一些东西来弄清楚它的工作原理", function: "Ti" },
+      { id: 29, text: "容易把握住言论、文字和事件的逻辑脉络，并且察觉到其中可能的漏洞", function: "Ti" },
+      { id: 30, text: "通过分析事物的原理来理解世界", function: "Ti" },
+      
+      // 外倾情感 (Fe)
+      { id: 31, text: "我乐于主动向他人传递善意，并且期许他人也这样对待自己", function: "Fe" },
+      { id: 32, text: "易被周围的环境感染而感受到强烈的情绪冲动", function: "Fe" },
+      { id: 33, text: "在工作中，更看重团队的和谐与合作", function: "Fe" },
+      { id: 34, text: "善于用肢体语言表达对他人的热情，使他们感到舒适和温馨", function: "Fe" },
+      { id: 35, text: "做一件事，一定要考虑到他人的感受和需要", function: "Fe" },
+      
+      // 内倾情感 (Fi)
+      { id: 36, text: "有强烈的自我觉知，总会深度挖掘和感受自己的内心世界", function: "Fi" },
+      { id: 37, text: "认为自己骨子里是个敏感而情感丰富的人", function: "Fi" },
+      { id: 38, text: "经常被自己内心复杂的情感击中", function: "Fi" },
+      { id: 39, text: "坚持自己的价值观和信念，不易受他人影响", function: "Fi" },
+      { id: 40, text: "在做决定时，首先考虑是否符合自己的内心感受和价值观", function: "Fi" }
+    ];
+
+    // 认知功能详细信息
+    const functionDetails = {
+      Se: {
+        name: "外倾感觉",
+        color: "#3b82f6", // blue-500
+        description: "外倾感觉型的人喜欢享受外部世界带来的感官刺激，对环境变化非常敏锐，爱冒险、爱行动、爱即时反馈。他们活在当下，注重实际体验，对事物的深层次内涵可能不求甚解。",
+        strengths: ["对环境变化敏感", "善于把握当下机会", "注重实际体验", "行动能力强", "适应能力好"],
+        development: ["培养长期规划能力", "关注事物的深层意义", "学会延迟满足", "发展抽象思维能力"]
+      },
+      Si: {
+        name: "内倾感觉",
+        color: "#10b981", // emerald-500
+        description: "内倾感觉型的人喜欢沉浸于自身的主观感觉世界中，关注内在的经验和记忆。他们倾向依赖过往经验来预测未来，喜欢稳定、规律、可预期的生活，对细节和变化敏感。",
+        strengths: ["记忆力强", "注重细节", "遵循传统和经验", "做事有条理", "善于保持稳定"],
+        development: ["接受变化和新观念", "培养创新思维", "关注全局而非仅细节", "增强适应不确定性的能力"]
+      },
+      Ne: {
+        name: "外倾直觉",
+        color: "#8b5cf6", // violet-500
+        description: "外倾直觉型的人喜欢异想天开，在外部世界中发掘新的可能性，厌恶繁琐、单调的日常，追求新异的刺激。他们思路跳跃、创意丰富，能同时看到多种可能性，喜欢跨界、创新、尝试新事物。",
+        strengths: ["创造力强", "善于发现新机会", "思维灵活多变", "富有想象力", "适应能力强"],
+        development: ["培养专注力和坚持度", "将想法落实为行动", "关注细节和可行性", "发展长期规划能力"]
+      },
+      Ni: {
+        name: "内倾直觉",
+        color: "#6366f1", // indigo-500
+        description: "内倾直觉型的人常常拥有丰富而奇异的内在精神世界，擅长洞察事物本质，对趋势和未来有直觉式判断。他们能把零散信息整合成一个\"内在模型\"，对人生目标和愿景有强烈执念。",
+        strengths: ["洞察力强", "有预见性", "善于把握本质", "思维深邃", "目标明确"],
+        development: ["增强行动力", "关注现实细节", "学会表达内在洞见", "发展合作能力"]
+      },
+      Te: {
+        name: "外倾思维",
+        color: "#ef4444", // red-500
+        description: "外倾思维型的个体通常会倾向于压抑自己天性中的情感一面，目标清晰、效率导向，善于管理资源和推进事情，快速决策、快速执行。他们重视数据与现实反馈，关注外部世界的逻辑和效率。",
+        strengths: ["决策能力强", "目标明确", "善于组织和管理", "效率高", "逻辑思维清晰"],
+        development: ["关注他人感受", "培养灵活性", "学会倾听和妥协", "发展情感智能"]
+      },
+      Ti: {
+        name: "内倾思维",
+        color: "#f97316", // orange-500
+        description: "内倾思维型的人拥有内倾者的特点，他们同样擅长归纳、演绎等思维过程，逻辑敏锐，善于拆解结构，喜欢构建自己的认知体系，对不严谨非常敏感。他们关心的是思想观念本身，而非外部存在的客观事物。",
+        strengths: ["逻辑分析能力强", "善于思考和推理", "注重准确性", "独立思考能力强", "善于解决复杂问题"],
+        development: ["增强实际应用能力", "关注结果和效率", "学会团队合作", "发展情感表达能力"]
+      },
+      Fe: {
+        name: "外倾情感",
+        color: "#ec4899", // pink-500
+        description: "外倾情感型的人情感压过了理智占据上风，且他们的情感很容易受外部事物的影响。他们共情力强，社交敏锐，擅长调节关系与氛围，关注群体和谐，乐于情感表达与支持。",
+        strengths: ["善于共情", "社交能力强", "关注他人感受", "善于协调关系", "情感表达丰富"],
+        development: ["培养理性思考能力", "学会独立判断", "建立健康边界", "发展自我认知"]
+      },
+      Fi: {
+        name: "内倾情感",
+        color: "#14b8a6", // teal-500
+        description: "内倾情感型的人不像外倾情感型的人那样情绪外露，虽然他们同样情绪丰富。他们情感深刻，价值观清晰，对\"不对劲\"非常敏感，坚持内心原则，擅长自我反思。",
+        strengths: ["价值观清晰", "自我认知强", "坚持原则", "情感深度", "善于反思"],
+        development: ["增强情感表达能力", "理解不同价值观", "学会妥协和适应", "发展社交技能"]
+      }
+    };
+
+    // DOM 元素
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const sections = {
+      home: document.getElementById('home-section'),
+      about: document.getElementById('about-section'),
+      test: document.getElementById('test-section'),
+      result: document.getElementById('result-section')
+    };
+    
+    // 导航链接
+    const navLinks = {
+      home: [document.getElementById('nav-home'), document.getElementById('mobile-nav-home')],
+      about: [document.getElementById('nav-about'), document.getElementById('mobile-nav-about')],
+      test: [document.getElementById('nav-test'), document.getElementById('mobile-nav-test')]
+    };
+    
+    // 按钮
+    const startTestBtn = document.getElementById('start-test-btn');
+    const aboutToTestBtn = document.getElementById('about-to-test-btn');
+    const prevBtn = document.getElementById('prev-btn');
+    const nextBtn = document.getElementById('next-btn');
+    const retakeTestBtn = document.getElementById('retake-test-btn');
+    
+    // 测试相关元素
+    const questionText = document.getElementById('question-text');
+    const optionsContainer = document.getElementById('options-container');
+    const currentQuestionSpan = document.getElementById('current-question');
+    const totalQuestionsSpan = document.getElementById('total-questions');
+    const progressBar = document.getElementById('progress-bar');
+    
+    // 结果相关元素
+    const functionRanking = document.getElementById('function-ranking');
+    const dominantFunctionAnalysis = document.getElementById('dominant-function-analysis');
+    const strengthsList = document.getElementById('strengths-list');
+    const developmentList = document.getElementById('development-list');
+    
+
+    
+    // 测试状态
+    let currentQuestionIndex = 0;
+    const userAnswers = {};
+    const functionScores = {
+      Se: 0, Si: 0, Ne: 0, Ni: 0,
+      Te: 0, Ti: 0, Fe: 0, Fi: 0
+    };
+    let totalQuestions = questions.length;
+    
+    // 初始化
+    function init() {
+      // 设置总问题数
+      totalQuestionsSpan.textContent = totalQuestions;
+      
+      // 移动端菜单切换
+      mobileMenuButton.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+      });
+      
+      // 导航链接点击事件
+      Object.keys(navLinks).forEach(section => {
+        navLinks[section].forEach(link => {
+          link.addEventListener('click', (e) => {
+            e.preventDefault();
+            showSection(section);
+            mobileMenu.classList.add('hidden');
+          });
+        });
+      });
+      
+      // 开始测试按钮点击事件
+      startTestBtn.addEventListener('click', () => {
+        showSection('test');
+        loadQuestion(0);
+      });
+      
+      aboutToTestBtn.addEventListener('click', () => {
+        showSection('test');
+        loadQuestion(0);
+      });
+      
+      // 上一题/下一题按钮点击事件
+      prevBtn.addEventListener('click', () => {
+        if (currentQuestionIndex > 0) {
+          currentQuestionIndex--;
+          loadQuestion(currentQuestionIndex);
+        }
+      });
+      
+      nextBtn.addEventListener('click', () => {
+        const selectedOption = document.querySelector('input[name="answer"]:checked');
+        
+        if (!selectedOption) {
+          alert('请选择一个选项');
+          return;
+        }
+        
+        // 保存当前问题的答案
+        userAnswers[currentQuestionIndex] = parseInt(selectedOption.value);
+        
+        if (currentQuestionIndex < totalQuestions - 1) {
+          currentQuestionIndex++;
+          loadQuestion(currentQuestionIndex);
+        } else {
+          // 计算测试结果
+          calculateResults();
+          showSection('result');
+          displayResults();
+        }
+      });
+      
+      // 重新测试按钮点击事件
+      retakeTestBtn.addEventListener('click', () => {
+        // 重置测试状态
+        currentQuestionIndex = 0;
+        Object.keys(userAnswers).forEach(key => delete userAnswers[key]);
+        Object.keys(functionScores).forEach(func => functionScores[func] = 0);
+        
+        // 返回测试页面
+        showSection('test');
+        loadQuestion(0);
+      });
+    }
+    
+    // 显示指定部分
+    function showSection(sectionName) {
+      // 隐藏所有部分
+      Object.values(sections).forEach(section => {
+        section.classList.add('hidden');
+      });
+      
+      // 显示指定部分
+      sections[sectionName].classList.remove('hidden');
+      
+      // 更新导航链接样式
+      Object.keys(navLinks).forEach(section => {
+        navLinks[section].forEach(link => {
+          if (section === sectionName) {
+            link.classList.add('text-primary');
+            link.classList.remove('text-gray-600');
+          } else {
+            link.classList.remove('text-primary');
+            link.classList.add('text-gray-600');
+          }
+        });
+      });
+    }
+    
+    // 加载问题
+    function loadQuestion(index) {
+      const question = questions[index];
+      questionText.textContent = question.text;
+      currentQuestionSpan.textContent = index + 1;
+      
+      // 更新进度条
+      const progress = ((index + 1) / totalQuestions) * 100;
+      progressBar.style.width = `${progress}%`;
+      
+      // 清除之前的选择
+      const radioButtons = optionsContainer.querySelectorAll('input[type="radio"]');
+      radioButtons.forEach(radio => {
+        radio.checked = false;
+      });
+      
+      // 如果用户之前回答过这个问题，恢复选择
+      if (userAnswers[index]) {
+        const selectedRadio = optionsContainer.querySelector(`input[type="radio"][value="${userAnswers[index]}"]`);
+        if (selectedRadio) {
+          selectedRadio.checked = true;
+        }
+      }
+      
+      // 更新上一题/下一题按钮状态
+      prevBtn.disabled = index === 0;
+      
+      if (index === totalQuestions - 1) {
+        nextBtn.textContent = '提交';
+      } else {
+        nextBtn.textContent = '下一题';
+      }
+    }
+    
+    // 计算测试结果
+    function calculateResults() {
+      // 重置分数
+      Object.keys(functionScores).forEach(func => {
+        functionScores[func] = 0;
+      });
+      
+      // 计算每个功能的总分
+      questions.forEach((question, index) => {
+        const answer = userAnswers[index];
+        if (answer) {
+          functionScores[question.function] += answer;
+        }
+      });
+      
+      // 计算每个功能的平均分（每个功能有5个问题）
+      Object.keys(functionScores).forEach(func => {
+        functionScores[func] = functionScores[func] / 5;
+      });
+    }
+    
+    // 显示测试结果
+    function displayResults() {
+      // 创建雷达图
+      createRadarChart();
+      
+      // 显示功能排序
+      displayFunctionRanking();
+      
+      // 显示主导功能分析
+      displayDominantFunctionAnalysis();
+    }
+    
+    // 创建雷达图
+    function createRadarChart() {
+      const ctx = document.getElementById('radar-chart').getContext('2d');
+      
+      // 准备数据
+      const labels = Object.keys(functionScores).map(key => functionDetails[key].name);
+      const data = Object.values(functionScores);
+      const backgroundColors = Object.keys(functionScores).map(key => functionDetails[key].color + '20'); // 添加透明度
+      const borderColors = Object.keys(functionScores).map(key => functionDetails[key].color);
+      
+      // 创建雷达图
+      new Chart(ctx, {
+        type: 'radar',
+        data: {
+          labels: labels,
+          datasets: [{
+            label: '认知功能得分',
+            data: data,
+            backgroundColor: backgroundColors,
+            borderColor: borderColors,
+            borderWidth: 2,
+            pointBackgroundColor: borderColors,
+            pointBorderColor: '#fff',
+            pointHoverBackgroundColor: '#fff',
+            pointHoverBorderColor: borderColors
+          }]
+        },
+        options: {
+          scales: {
+            r: {
+              beginAtZero: true,
+              max: 5,
+              ticks: {
+                stepSize: 1
+              }
+            }
+          },
+          plugins: {
+            legend: {
+              display: false
+            },
+            tooltip: {
+              callbacks: {
+                label: function(context) {
+                  return `${context.label}: ${context.raw.toFixed(1)}`;
+                }
+              }
+            }
+          }
+        }
+      });
+    }
+    
+    // 显示功能排序
+    function displayFunctionRanking() {
+      // 按得分排序
+      const sortedFunctions = Object.keys(functionScores).sort((a, b) => {
+        return functionScores[b] - functionScores[a];
+      });
+      
+      // 清空容器
+      functionRanking.innerHTML = '';
+      
+      // 添加排序结果
+      sortedFunctions.forEach((func, index) => {
+        const score = functionScores[func].toFixed(1);
+        const details = functionDetails[func];
+        
+        const functionElement = document.createElement('div');
+        functionElement.className = 'flex items-center justify-between p-4 rounded-lg';
+        
+        // 根据排名设置背景色
+        if (index === 0) {
+          functionElement.classList.add('bg-blue-50');
+        } else if (index === 1) {
+          functionElement.classList.add('bg-purple-50');
+        } else if (index === 2) {
+          functionElement.classList.add('bg-green-50');
+        } else {
+          functionElement.classList.add('bg-gray-50');
+        }
+        
+        functionElement.innerHTML = `
+          <div class="flex items-center">
+            <div class="w-8 h-8 rounded-full flex items-center justify-center mr-3" style="background-color: ${details.color}20; color: ${details.color}">
+              ${index + 1}
+            </div>
+            <div>
+              <div class="font-medium">${details.name} (${func})</div>
+              <div class="text-sm text-gray-500">${getFunctionType(func)}</div>
+            </div>
+          </div>
+          <div class="flex items-center">
+            <div class="text-lg font-semibold mr-2">${score}</div>
+            <div class="w-24 bg-gray-200 rounded-full h-2">
+              <div class="h-2 rounded-full" style="width: ${(score / 5) * 100}%; background-color: ${details.color}"></div>
+            </div>
+          </div>
+        `;
+        
+        functionRanking.appendChild(functionElement);
+      });
+    }
+    
+    // 获取功能类型描述
+    function getFunctionType(func) {
+      const typeMap = {
+        Se: '外倾感知',
+        Si: '内倾感知',
+        Ne: '外倾直觉',
+        Ni: '内倾直觉',
+        Te: '外倾思维',
+        Ti: '内倾思维',
+        Fe: '外倾情感',
+        Fi: '内倾情感'
+      };
+      
+      return typeMap[func] || '';
+    }
+    
+    // 根据八维功能得分推导MBTI类型
+    function deriveMBTI() {
+      // 计算四个维度的偏好
+      // E/I: 外倾功能总分 vs 内倾功能总分
+      const extravertedFunctions = ['Se', 'Ne', 'Te', 'Fe'];
+      const introvertedFunctions = ['Si', 'Ni', 'Ti', 'Fi'];
+      
+      let eScore = 0, iScore = 0;
+      extravertedFunctions.forEach(func => eScore += functionScores[func]);
+      introvertedFunctions.forEach(func => iScore += functionScores[func]);
+      const EI = eScore > iScore ? 'E' : 'I';
+      
+      // S/N: 感觉功能总分 vs 直觉功能总分
+      const sensingFunctions = ['Se', 'Si'];
+      const intuitionFunctions = ['Ne', 'Ni'];
+      
+      let sScore = 0, nScore = 0;
+      sensingFunctions.forEach(func => sScore += functionScores[func]);
+      intuitionFunctions.forEach(func => nScore += functionScores[func]);
+      const SN = sScore > nScore ? 'S' : 'N';
+      
+      // T/F: 思维功能总分 vs 情感功能总分
+      const thinkingFunctions = ['Te', 'Ti'];
+      const feelingFunctions = ['Fe', 'Fi'];
+      
+      let tScore = 0, fScore = 0;
+      thinkingFunctions.forEach(func => tScore += functionScores[func]);
+      feelingFunctions.forEach(func => fScore += functionScores[func]);
+      const TF = tScore > fScore ? 'T' : 'F';
+      
+      // J/P: 判断功能总分 vs 感知功能总分
+      // 判断功能: Te, Ti, Fe, Fi
+      // 感知功能: Se, Si, Ne, Ni
+      // 但这里我们使用另一种方法: 根据主导功能的态度和类型来判断
+      const dominantFunction = Object.keys(functionScores).reduce((a, b) => {
+        return functionScores[a] > functionScores[b] ? a : b;
+      });
+      
+      // 如果主导功能是外倾的，那么J/P由功能类型决定
+      // 如果主导功能是内倾的，那么J/P由辅助功能类型决定
+      let JP = 'J';
+      
+      if (extravertedFunctions.includes(dominantFunction)) {
+        // 外倾主导功能
+        if (thinkingFunctions.includes(dominantFunction) || feelingFunctions.includes(dominantFunction)) {
+          JP = 'J'; // 判断型
+        } else {
+          JP = 'P'; // 感知型
+        }
+      } else {
+        // 内倾主导功能，找辅助功能
+        const sortedFunctions = Object.keys(functionScores).sort((a, b) => {
+          return functionScores[b] - functionScores[a];
+        });
+        
+        const auxiliaryFunction = sortedFunctions.find(func => {
+          // 辅助功能与主导功能态度相反，且不是同一类功能
+          return (extravertedFunctions.includes(func) !== extravertedFunctions.includes(dominantFunction)) &&
+                 !((sensingFunctions.includes(func) && sensingFunctions.includes(dominantFunction)) ||
+                   (intuitionFunctions.includes(func) && intuitionFunctions.includes(dominantFunction)) ||
+                   (thinkingFunctions.includes(func) && thinkingFunctions.includes(dominantFunction)) ||
+                   (feelingFunctions.includes(func) && feelingFunctions.includes(dominantFunction)));
+        });
+        
+        if (auxiliaryFunction) {
+          if (thinkingFunctions.includes(auxiliaryFunction) || feelingFunctions.includes(auxiliaryFunction)) {
+            JP = 'J'; // 判断型
+          } else {
+            JP = 'P'; // 感知型
+          }
+        }
+      }
+      
+      return EI + SN + TF + JP;
+    }
+
+    // 显示主导功能分析
+    function displayDominantFunctionAnalysis() {
+      // 获取得分最高的功能
+      const dominantFunction = Object.keys(functionScores).reduce((a, b) => {
+        return functionScores[a] > functionScores[b] ? a : b;
+      });
+      
+      const details = functionDetails[dominantFunction];
+      
+      // 推导MBTI类型
+      const mbtiType = deriveMBTI();
+      
+      // 更新主导功能分析，添加MBTI类型
+      dominantFunctionAnalysis.innerHTML = `
+        <div class="mb-6 text-center">
+          <div class="inline-block bg-primary text-white text-4xl font-bold py-3 px-6 rounded-lg shadow-lg mb-2">
+            ${mbtiType}
+          </div>
+          <h3 class="text-xl text-gray-600">你的MBTI类型</h3>
+        </div>
+        
+        <div class="flex items-center mb-4">
+          <div class="w-12 h-12 rounded-full flex items-center justify-center mr-4" style="background-color: ${details.color}20; color: ${details.color}">
+            <span class="text-xl font-bold">${dominantFunction}</span>
+          </div>
+          <div>
+            <h4 class="text-xl font-semibold">${details.name}</h4>
+            <p class="text-gray-600">你的主导认知功能</p>
+          </div>
+        </div>
+        <p class="text-gray-700 mb-4">${details.description}</p>
+      `;
+      
+      // 更新优势列表
+      strengthsList.innerHTML = '';
+      details.strengths.forEach(strength => {
+        const li = document.createElement('li');
+        li.textContent = strength;
+        strengthsList.appendChild(li);
+      });
+      
+      // 更新发展建议列表
+      developmentList.innerHTML = '';
+      details.development.forEach(suggestion => {
+        const li = document.createElement('li');
+        li.textContent = suggestion;
+        developmentList.appendChild(li);
+      });
+    }
+    
+    // 初始化应用
+    init();
+  </script>
+</body>
+</html>
